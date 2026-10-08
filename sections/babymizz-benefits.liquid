@@ -1,0 +1,52 @@
+<section class="bm-benefits bm-benefits--{{ section.id }}" aria-labelledby="bm-benefits-title-{{ section.id }}">
+  <div class="bm-benefits__inner">
+    {% if section.settings.heading != blank %}
+      <h2 id="bm-benefits-title-{{ section.id }}" class="bm-benefits__title">{{ section.settings.heading | escape }}</h2>
+    {% endif %}
+    <div class="bm-benefits__grid">
+      {% for block in section.blocks %}
+        <div class="bm-benefits__item" {{ block.shopify_attributes }}>
+          <h3>{{ block.settings.title | escape }}</h3>
+          {% if block.settings.description != blank %}<p>{{ block.settings.description | escape }}</p>{% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% style %}
+  .bm-benefits--{{ section.id }} { background: {{ section.settings.background }}; color: {{ section.settings.text_color }}; padding: 36px 16px; }
+  .bm-benefits--{{ section.id }} .bm-benefits__inner { max-width: 1100px; margin: auto; }
+  .bm-benefits--{{ section.id }} .bm-benefits__title { font-size: clamp(23px, 4vw, 34px); text-align: center; margin: 0 0 24px; }
+  .bm-benefits--{{ section.id }} .bm-benefits__grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); }
+  .bm-benefits--{{ section.id }} .bm-benefits__item { border-radius: 14px; padding: 20px; background: rgba(255,255,255,.65); }
+  .bm-benefits--{{ section.id }} h3 { margin: 0 0 8px; font-size: 17px; }
+  .bm-benefits--{{ section.id }} p { margin: 0; line-height: 1.5; font-size: 14px; }
+{% endstyle %}
+{% schema %}
+{
+  "name": "BABYMIZZ avantajlar",
+  "settings": [
+    {"type":"text","id":"heading","label":"Başlık","default":"Bir çantadan çok daha fazlası"},
+    {"type":"color","id":"background","label":"Arka plan","default":"#FFF6F0"},
+    {"type":"color","id":"text_color","label":"Yazı rengi","default":"#332F2C"}
+  ],
+  "blocks": [
+    {
+      "type":"benefit",
+      "name":"Avantaj",
+      "settings":[
+        {"type":"text","id":"title","label":"Başlık","default":"Günlük kullanım kolaylığı"},
+        {"type":"textarea","id":"description","label":"Açıklama","default":"İhtiyaçlarınızı düzenli biçimde yanınızda taşıyın."}
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {"name":"BABYMIZZ avantajlar","blocks":[
+      {"type":"benefit","settings":{"title":"Çanta ve taşınabilir alan","description":"Pratik tasarım, seyahatlerde kullanım kolaylığı."}},
+      {"type":"benefit","settings":{"title":"Düzenli bölmeler","description":"Bebeğinizin ihtiyaçlarını tek yerde toplayın."}},
+      {"type":"benefit","settings":{"title":"Kolay taşınır","description":"Günlük geziler için işlevsel tasarım."}}
+    ]}
+  ]
+}
+{% endschema %}
